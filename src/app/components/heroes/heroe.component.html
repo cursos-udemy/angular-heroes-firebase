@@ -1,0 +1,32 @@
+<h3>Heroe <small>nombre....</small></h3>
+
+<div class="row mb-3 animated fadeIn fast">
+  <div class="col-md-12">
+    <form action="">
+
+      <div class="form-group">
+        <label for="it_nombre_heroe">Nombre</label>
+        <input type="text" class="form-control" id="it_nombre_heroe" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sel_casa_heroe">Casa</label>
+        <select class="form-control" id="sel_casa_heroe" required>
+          <option value="DC">DC</option>
+          <option value="MARVEL">Marvel</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="it_bio">Bio</label>
+        <textarea class="form-control" id="it_bio" required>
+        </textarea>
+      </div>
+
+      <div class="form-group text-right">
+          <button class="btn btn-danger" type="button" [routerLink]="['heroes']">Volver</button>
+          <button class="btn btn-success ml-2" type="submit">Grabar</button>
+      </div>
+    </form>
+  </div>
+</div>
