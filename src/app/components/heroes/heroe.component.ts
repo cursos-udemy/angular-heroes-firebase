@@ -22,7 +22,13 @@ export class HeroeComponent implements OnInit {
     activatedRouted.params.subscribe(params => {
       console.log("Params: ", params);
       this.id = params["id"];
-      this.nuevo = this.id == "nuevo";
+      this.nuevo = (this.id == "nuevo");
+      if (!this.nuevo) {
+        this.heroesService.getHeroe(this.id).subscribe ((data:any) => {
+          console.log(data);
+          this.heroe = data;
+        });
+      }
     });
 
     // inicializo la variable heroe
@@ -36,8 +42,6 @@ export class HeroeComponent implements OnInit {
   ngOnInit() {}
 
   public guardar() {
-    console.log(this.heroe);
-
     if (this.nuevo) {
       this.heroesService.nuevoHeroe(this.heroe).subscribe(
         (data: any) => {
@@ -49,7 +53,6 @@ export class HeroeComponent implements OnInit {
         }
       );
     } else {
-      // this.heroe.key$ = this.id;
       this.heroesService.actualizarHeroe(this.heroe, this.id).subscribe(
         (data: any) => {
           console.log("servicio.guardar(): ", data);
@@ -59,5 +62,12 @@ export class HeroeComponent implements OnInit {
         }
       );
     }
+  }
+
+  public nuevoHeroe(form:NgForm) {
+    this.router.navigate(["/heroe","nuevo"]);
+    form.reset({
+      casa: "MARVEL"
+    });
   }
 }

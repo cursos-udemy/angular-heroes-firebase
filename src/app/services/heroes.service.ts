@@ -5,7 +5,9 @@ import { Heroe } from "../interfaces/heroe.interface";
 
 const FIREBASE_URL: string = "https://heroesapp-3ff73.firebaseio.com";
 const FIREBASE_DATABASE: string = FIREBASE_URL + "/heroes";
-const FIREBASE_DATABASE_JSON: string = FIREBASE_URL + "/heroes.json";
+const FIREBASE_HEADERS = new HttpHeaders({
+  "Content-Type": "application/json"
+});
 
 @Injectable({
   providedIn: "root"
@@ -15,30 +17,35 @@ export class HeroesService {
     console.log("HeroesService init [OK]");
   }
 
+  public getHeroe(key$: string) {
+    let url = `${FIREBASE_DATABASE}/${key$}.json`;
+    return this.http.get(url, { headers: FIREBASE_HEADERS });
+  }
+
+  public getHeroes() {
+    let url = `${FIREBASE_DATABASE}.json`;
+    return this.http.get(url, { headers: FIREBASE_HEADERS });
+  }
+
   public nuevoHeroe(heroe: Heroe) {
     let body = JSON.stringify(heroe);
-    let headers = new HttpHeaders({
-      "Content-Type": "application/json"
-    });
-
-    return this.http.post(FIREBASE_DATABASE_JSON, body, { headers: headers });
-    // map(r => {
-    //   console.log(r.json());
-    //   return r.json();
-    // });
+    let url = `${FIREBASE_DATABASE}.json`;
+    return this.http.post(url, body, { headers: FIREBASE_HEADERS });
   }
 
-  public actualizarHeroe(heroe: Heroe, key$:string) {
+  public actualizarHeroe(heroe: Heroe, key$: string) {
     let body = JSON.stringify(heroe);
-    let headers = new HttpHeaders({
-      "Content-Type": "application/json"
-    });
     let url = `${FIREBASE_DATABASE}/${key$}.json`;
-
-    return this.http.put(url, body, { headers: headers });
+    return this.http.put(url, body, { headers: FIREBASE_HEADERS });
     // map(r => {
     //   console.log(r.json());
     //   return r.json();
     // });
   }
+
+  public eliminarHeroe(key$: string) {
+    let url = `${FIREBASE_DATABASE}/${key$}.json`;
+    return this.http.delete(url, { headers: FIREBASE_HEADERS });
+  }
+
 }

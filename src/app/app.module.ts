@@ -9,13 +9,15 @@ import { HeroeComponent } from "./components/heroes/heroe.component";
 import { AppRoutingModule } from "./app.routes";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { HeroesService } from "./services/heroes.service";
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesComponent,
     HeroeComponent,
-    NavbarComponent
+    NavbarComponent,
+    KeysPipe
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [HeroesService],

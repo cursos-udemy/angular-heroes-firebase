@@ -1,7 +1,6 @@
 <div class="row animated fadeIn fast">
   <div class="col-md-12 text-right">
-      <button type="button" class="btn btn-warning btn-sm"
-      [routerLink]="['/heroe','nuevo']">Nuevo Heroe</button>
+    <button type="button" class="btn btn-warning" [routerLink]="['/heroe','nuevo']">Nuevo Héroe</button>
   </div>
 </div>
 <br>
@@ -9,24 +8,28 @@
 <div class="row animated fadeIn fast">
   <div class="col-md-12">
     <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Casa</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" class="text-center" style="width: 40px;">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Casa</th>
+            <th scope="col" style="width: 90px;">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let k of heroes | keys; let i = index">
+            <th scope="row" class="text-center">{{i + 1}}</th>
+            <td>{{heroes[k].nombre}}</td>
+            <td>{{heroes[k].casa}}</td>
+            <td class="text-center">
+              <a [routerLink]="[ '/heroe', k ]"><i class="fas fa-pencil-alt fa-lg text-secondary"></i></a>
+              &nbsp;
+              <a href="#" (click)="borrarHeroe(k);"><i class="far fa-trash-alt fa-lg text-secondary"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
