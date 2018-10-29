@@ -20,12 +20,10 @@ export class HeroeComponent implements OnInit {
     private activatedRouted: ActivatedRoute
   ) {
     activatedRouted.params.subscribe(params => {
-      console.log("Params: ", params);
       this.id = params["id"];
-      this.nuevo = (this.id == "nuevo");
+      this.nuevo = this.id == "nuevo";
       if (!this.nuevo) {
-        this.heroesService.getHeroe(this.id).subscribe ((data:any) => {
-          console.log(data);
+        this.heroesService.getHeroe(this.id).subscribe((data: any) => {
           this.heroe = data;
         });
       }
@@ -45,7 +43,6 @@ export class HeroeComponent implements OnInit {
     if (this.nuevo) {
       this.heroesService.nuevoHeroe(this.heroe).subscribe(
         (data: any) => {
-          console.log("servicio.guardar(): ", data);
           this.router.navigate(["/heroe", data.name]);
         },
         error => {
@@ -55,7 +52,7 @@ export class HeroeComponent implements OnInit {
     } else {
       this.heroesService.actualizarHeroe(this.heroe, this.id).subscribe(
         (data: any) => {
-          console.log("servicio.guardar(): ", data);
+          // console.log("servicio.guardar(): ", data);
         },
         error => {
           console.error("Error al guardar: ", error);
@@ -64,8 +61,8 @@ export class HeroeComponent implements OnInit {
     }
   }
 
-  public nuevoHeroe(form:NgForm) {
-    this.router.navigate(["/heroe","nuevo"]);
+  public nuevoHeroe(form: NgForm) {
+    this.router.navigate(["/heroe", "nuevo"]);
     form.reset({
       casa: "MARVEL"
     });
